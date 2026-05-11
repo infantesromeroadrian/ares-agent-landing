@@ -217,7 +217,7 @@ export default function Home() {
       {/* HEADER */}
       <header className="flex items-center justify-between border-b border-line py-6">
         <a href="/" className="font-display text-xl font-semibold tracking-tight">
-          ARES Agent
+          ARES
         </a>
         <nav className="hidden gap-8 font-body text-sm md:flex">
           <a href="#what" className="opacity-70 transition-opacity hover:opacity-100">
@@ -255,7 +255,7 @@ export default function Home() {
               {/* Brand wordmark with ARES magenta+violet glow */}
               <div className="mb-8 flex items-baseline gap-3">
                 <span className="oc-glow font-display text-5xl font-bold tracking-tight md:text-6xl">
-                  ARES Agent
+                  ARES
                 </span>
                 <span className="hidden font-body text-xs uppercase tracking-[0.2em] opacity-50 md:inline">
                   v4.0
@@ -573,7 +573,7 @@ export default function Home() {
             Take it for a spin
           </h2>
           <p className="mb-10 max-w-2xl text-lg opacity-80">
-            ARES Agent is open source. Clone it, audit it, fork it. Built for the{" "}
+            ARES is open source. Clone it, audit it, fork it. Built for the{" "}
             <span className="text-brand font-semibold">Anthropic Fellows 2026</span>{" "}
             application.
           </p>
@@ -612,7 +612,7 @@ export default function Home() {
       <footer className="border-t border-line py-10 font-body text-xs opacity-50">
         <div className="flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
           <span>
-            ARES Agent — Adversarial Reasoning Engine &amp; Strategist · Built by Adrian Infantes
+            ARES — Adversarial Research &amp; Engineering Stack · Built by Adrian Infantes
           </span>
           <span>2026 · MIT License</span>
         </div>

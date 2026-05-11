@@ -1,7 +1,7 @@
 import Home from "@/app/scroll/page";
 
 export const metadata = {
-  title: "ARES Agent — Adversarial Multi-Agent System for ML/AI Engineering",
+  title: "ARES — Adversarial Multi-Agent System for ML/AI Engineering",
   description:
     "49 specialized agents · 97 skills · 47 ADRs · 14-cycle ML pipeline (47 phases) · " +
     "9 mortal sins as quality gates. Built by Adrian Infantes for the Anthropic Fellows 2026.",
