@@ -20,6 +20,19 @@
   --color-oc-fg-muted: rgb(240 244 255 / 0.62);
   --color-oc-fg-faint: rgb(240 244 255 / 0.36);
 
+  /* openclaw accent palette — captured visually from the full-page screenshot.
+     The branding scraper missed these because they live in gradient stops and
+     utility classes, not in CSS vars. */
+  --color-brand: #FF5722;            /* Primary CTA orange */
+  --color-brand-hover: #FF6E40;
+  --color-coral: #FF4444;            /* Icon-circle coral */
+  --color-coral-soft: rgb(255 68 68 / 0.12);
+  --color-syntax-pink: #ff6b9d;
+  --color-syntax-green: #00ff88;
+  --color-tab-active: #00ff88;
+  --color-glow-cyan: rgb(0 212 255 / 0.22);
+  --color-glow-purple: rgb(107 70 193 / 0.18);
+
   /* Font stacks — openclaw uses Clash Display (display/heading) + Satoshi (body) */
   --font-mono: "Satoshi", "Courier Prime", ui-monospace, monospace;
   --font-serif: "Clash Display", "Cormorant", serif;
@@ -38,7 +51,6 @@
 @layer base {
   body {
     background-color: #050810;
-    /* openclaw is FLAT — no grid, no radial gradient, no scanlines on body */
     color: #F0F4FF;
     font-family: "Satoshi", system-ui, -apple-system, "Segoe UI", sans-serif;
     font-size: 17.6px;
@@ -48,9 +60,109 @@
   }
 
   ::selection {
-    background-color: #F0F4FF;
+    background-color: #FF5722;
     color: #050810;
   }
+}
+
+/* openclaw hero aurora — radial cyan + purple glows positioned over hero.
+   Apply as ::before on .oc-hero. Two stacked radial-gradients with high alpha
+   on top, fading to transparent — gives the "northern lights" feel without
+   blocking the content underneath. */
+@layer components {
+  .oc-hero {
+    position: relative;
+    isolation: isolate;
+  }
+  .oc-hero::before {
+    content: "";
+    position: absolute;
+    inset: -10% -5% 30% -5%;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 55% 45% at 50% 0%, rgb(0 212 255 / 0.20), transparent 65%),
+      radial-gradient(ellipse 40% 35% at 25% 10%, rgb(107 70 193 / 0.18), transparent 60%),
+      radial-gradient(ellipse 38% 32% at 78% 20%, rgb(255 87 34 / 0.10), transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  /* Soft glow ring under a brand text/logo (the ARCA wordmark in hero) */
+  .oc-glow {
+    text-shadow:
+      0 0 24px rgb(0 212 255 / 0.35),
+      0 0 64px rgb(107 70 193 / 0.20);
+  }
+
+  /* Primary CTA — openclaw brand orange */
+  .btn-brand {
+    background-color: #FF5722;
+    color: #050810;
+    border: 1px solid #FF5722;
+    border-radius: 12px;
+    transition:
+      background-color 200ms var(--ease-out),
+      border-color 200ms var(--ease-out),
+      transform 160ms var(--ease-out);
+  }
+  .btn-brand:hover {
+    background-color: #FF6E40;
+    border-color: #FF6E40;
+  }
+  .btn-brand:active {
+    transform: scale(0.97);
+  }
+
+  /* Icon circle — coral red with white symbol inside (openclaw "What It Does") */
+  .icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background-color: rgb(255 68 68 / 0.16);
+    color: #FF4444;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Pill with optional brand icon — for "Built On" / "Works With Everything" */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #191D28;
+    background-color: #090E18;
+    font-size: 0.875rem;
+    transition: border-color 200ms var(--ease-out), background-color 200ms var(--ease-out);
+  }
+  .pill:hover {
+    border-color: rgb(255 87 34 / 0.4);
+    background-color: rgb(255 87 34 / 0.04);
+  }
+
+  /* Tab — openclaw Quick Start. Inactive: subtle. Active: green underline highlight */
+  .tab {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgb(240 244 255 / 0.55);
+    border-bottom: 2px solid transparent;
+    transition: color 180ms var(--ease-out), border-color 180ms var(--ease-out);
+    cursor: default;
+  }
+  .tab-active {
+    color: #00ff88;
+    border-bottom-color: #00ff88;
+  }
+
+  /* Terminal syntax colors — openclaw uses pink + green + faint comments */
+  .syntax-comment { color: rgb(240 244 255 / 0.38); }
+  .syntax-cmd     { color: #ff6b9d; }
+  .syntax-flag    { color: #00ff88; }
+  .syntax-str     { color: #F0F4FF; }
 }
 
 @layer components {

@@ -135,13 +135,61 @@ function PrimaryCTA({
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex items-center gap-2 rounded-[12px] bg-primary px-6 py-3 font-body text-sm font-semibold text-navy transition-colors hover:bg-primary/90"
+      className="btn-brand inline-flex items-center gap-2 px-6 py-3 font-body text-sm font-semibold"
     >
       {children}
       <span aria-hidden="true">-&gt;</span>
     </a>
   );
 }
+
+/* Icon SVG library — abstract geometric symbols for the 6 feature pillars.
+   Inline so no extra dep. Each icon goes inside an .icon-circle. */
+function IconAgents() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="6" cy="6" r="2.5" /><circle cx="14" cy="6" r="2.5" /><circle cx="10" cy="14" r="2.5" />
+      <path d="M6 8.5 L10 11.5 M14 8.5 L10 11.5" />
+    </svg>
+  );
+}
+function IconGate() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="6" width="14" height="9" rx="1" /><path d="M6 6 V3 H14 V6" /><circle cx="10" cy="10.5" r="1.5" />
+    </svg>
+  );
+}
+function IconCycle() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 5 a7 7 0 1 0 1 8" /><path d="M16 2 V5 H13" />
+    </svg>
+  );
+}
+function IconAdr() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 3 H13 L16 6 V17 H5 Z" /><path d="M8 9 H13 M8 12 H13 M8 15 H11" />
+    </svg>
+  );
+}
+function IconSkill() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 2 L12.5 7 L18 8 L14 12 L15 17.5 L10 14.8 L5 17.5 L6 12 L2 8 L7.5 7 Z" />
+    </svg>
+  );
+}
+function IconHonest() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 2 L17 5 V10 C17 14.5 13.5 17 10 18 C6.5 17 3 14.5 3 10 V5 Z" />
+      <path d="M7 10 L9 12 L13 8" />
+    </svg>
+  );
+}
+const PILLAR_ICONS = [IconAgents, IconGate, IconCycle, IconAdr, IconSkill, IconHonest];
 
 function GhostCTA({
   href,
@@ -197,11 +245,20 @@ export default function Home() {
 
       <main className="flex-grow">
         {/* ============ HERO ============ */}
-        <RevealOnScroll className="py-24 md:py-32">
+        <RevealOnScroll className="oc-hero py-24 md:py-32">
           <p className="mb-6 font-body text-xs uppercase tracking-[0.18em] opacity-60">
             <Mark />
             Adversarial multi-agent system · ML / AI engineering
           </p>
+          {/* Brand wordmark with cyan/purple glow (openclaw hero pattern) */}
+          <div className="mb-8 flex items-baseline gap-3">
+            <span className="oc-glow font-display text-5xl font-bold tracking-tight md:text-6xl">
+              A.R.C.A.
+            </span>
+            <span className="hidden font-body text-xs uppercase tracking-[0.2em] opacity-50 md:inline">
+              v4.0
+            </span>
+          </div>
           <h1 className="mb-6 max-w-4xl font-display text-[2.75rem] font-semibold leading-[1.05] tracking-tight md:text-[4.5rem]">
             {HERO_HEADLINE}
           </h1>
@@ -240,15 +297,21 @@ export default function Home() {
             engineering team. Pure configuration — no runtime, no server, no container.
           </p>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {PILLARS.map((p) => (
-              <div
-                key={p.title}
-                className="rounded-[12px] border border-line bg-navyDarker p-6 transition-colors hover:border-primary/30"
-              >
-                <h3 className="mb-3 font-display text-lg font-semibold">{p.title}</h3>
-                <p className="text-sm leading-relaxed opacity-75">{p.body}</p>
-              </div>
-            ))}
+            {PILLARS.map((p, i) => {
+              const Icon = PILLAR_ICONS[i] ?? IconAgents;
+              return (
+                <div
+                  key={p.title}
+                  className="rounded-[12px] border border-line bg-navyDarker p-6 transition-colors hover:border-brand/40"
+                >
+                  <div className="icon-circle mb-4">
+                    <Icon />
+                  </div>
+                  <h3 className="mb-3 font-display text-lg font-semibold">{p.title}</h3>
+                  <p className="text-sm leading-relaxed opacity-75">{p.body}</p>
+                </div>
+              );
+            })}
           </div>
         </RevealOnScroll>
 
@@ -264,34 +327,45 @@ export default function Home() {
           </p>
 
           <div className="overflow-hidden rounded-[12px] border border-line bg-navyDarker">
-            {/* Tab strip */}
-            <div className="flex items-center justify-between border-b border-line px-4 py-2 text-[11px] uppercase tracking-[0.12em] opacity-60">
-              <div className="flex gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary/30" />
-                <span className="h-1.5 w-1.5 rounded-full bg-primary/30" />
-                <span className="h-1.5 w-1.5 rounded-full bg-primary/30" />
+            {/* Tab strip — openclaw style: active tab has green underline highlight */}
+            <div className="flex items-center justify-between border-b border-line px-2 py-1">
+              <div className="flex">
+                <span className="tab tab-active">Clone</span>
+                <span className="tab">install.sh</span>
+                <span className="tab">Verify</span>
               </div>
-              <span>arca.install</span>
+              <div className="hidden items-center gap-3 pr-3 md:flex">
+                <span className="text-[10px] uppercase tracking-[0.18em] opacity-50">arca.install</span>
+                <span className="flex gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-syntax-green/70" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-syntax-pink/70" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand/70" />
+                </span>
+              </div>
             </div>
-            {/* Body */}
-            <pre className="overflow-x-auto p-6 text-sm leading-relaxed">
-              <code className="font-body">
-                <span className="opacity-50">{"# 1. clone"}</span>
+            {/* Body — openclaw terminal uses pink commands + green flags + faint comments */}
+            <pre className="overflow-x-auto p-6 text-sm leading-relaxed font-body">
+              <code>
+                <span className="syntax-comment">{"# 1. clone"}</span>
                 {"\n"}
-                <span className="opacity-80">{"$ git clone "}</span>
-                <span className="text-primary">https://github.com/infantesromeroadrian/arca-claude-code</span>
+                <span className="syntax-cmd">{"$ git clone"}</span>
+                <span className="syntax-str">{" https://github.com/infantesromeroadrian/arca-claude-code"}</span>
                 {"\n"}
-                <span className="opacity-80">{"$ cd arca-claude-code"}</span>
+                <span className="syntax-cmd">{"$ cd"}</span>
+                <span className="syntax-str">{" arca-claude-code"}</span>
                 {"\n\n"}
-                <span className="opacity-50">{"# 2. install (settings + hooks + skills symlinked into ~/.claude)"}</span>
+                <span className="syntax-comment">{"# 2. install — symlinks settings + hooks + skills into ~/.claude"}</span>
                 {"\n"}
-                <span className="opacity-80">{"$ ./install.sh"}</span>
+                <span className="syntax-cmd">{"$ ./install.sh"}</span>
+                <span className="syntax-flag">{" --skills --hooks --mcp"}</span>
                 {"\n\n"}
-                <span className="opacity-50">{"# 3. verify gate chain"}</span>
+                <span className="syntax-comment">{"# 3. verify the gate chain"}</span>
                 {"\n"}
-                <span className="opacity-80">{"$ claude --debug --agent code-critic 'review this'"}</span>
+                <span className="syntax-cmd">{"$ claude"}</span>
+                <span className="syntax-flag">{" --debug --agent"}</span>
+                <span className="syntax-str">{" code-critic 'review this'"}</span>
                 {"\n"}
-                <span className="text-primary opacity-90">
+                <span className="syntax-flag opacity-90">
                   {"  ↳ @math-critic"}
                   {"\n"}
                   {"    ↳ @debt-detector"}
@@ -346,10 +420,11 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-2">
             {BUILT_ON.map((b) => (
-              <span
-                key={b}
-                className="rounded-[12px] border border-line bg-navyDarker px-4 py-2 font-body text-sm transition-colors hover:border-primary/40"
-              >
+              <span key={b} className="pill">
+                <span
+                  aria-hidden="true"
+                  className="inline-block h-2 w-2 rounded-full bg-brand"
+                />
                 {b}
               </span>
             ))}
@@ -485,11 +560,36 @@ export default function Home() {
           </h2>
           <p className="mb-10 max-w-2xl text-lg opacity-80">
             ARCA is open source. Clone it, audit it, fork it. Built for the{" "}
-            <span className="text-primary">Anthropic Fellows 2026</span> application.
+            <span className="text-brand font-semibold">Anthropic Fellows 2026</span>{" "}
+            application.
           </p>
           <div className="flex flex-wrap gap-3">
             <PrimaryCTA href={GITHUB_URL}>Star on GitHub</PrimaryCTA>
             <GhostCTA href={`mailto:${CONTACT_EMAIL}`}>Email Adrian</GhostCTA>
+          </div>
+        </RevealOnScroll>
+
+        {/* ============ ⟩ POWERED BY (openclaw "Sponsors" strip pattern) ============ */}
+        <RevealOnScroll className="border-t border-line py-16">
+          <p className="mb-8 font-body text-xs uppercase tracking-[0.18em] opacity-50">
+            <Mark />
+            Powered by
+          </p>
+          <div className="grid grid-cols-2 gap-x-12 gap-y-6 sm:grid-cols-3 md:grid-cols-5">
+            {[
+              "Anthropic",
+              "Claude",
+              "GitHub",
+              "Vercel",
+              "MCP",
+            ].map((name) => (
+              <div
+                key={name}
+                className="font-display text-lg font-semibold tracking-tight opacity-40 transition-opacity hover:opacity-90"
+              >
+                {name}
+              </div>
+            ))}
           </div>
         </RevealOnScroll>
       </main>

@@ -19,6 +19,13 @@ export default {
         "oc-surface": "#090E18",
         "oc-border": "#191D28",
         "oc-fg": "#F0F4FF",
+        // openclaw accent palette (extracted visually from screenshot)
+        brand: "#FF5722",
+        "brand-hover": "#FF6E40",
+        coral: "#FF4444",
+        "tab-active": "#00ff88",
+        "syntax-pink": "#ff6b9d",
+        "syntax-green": "#00ff88",
       },
       fontFamily: {
         mono: ['"Satoshi"', '"Courier Prime"', "monospace"],
