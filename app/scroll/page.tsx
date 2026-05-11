@@ -46,7 +46,7 @@ export default function Home() {
               ADVERSARIAL MULTI-AGENT SYSTEM<br />FOR ML/AI ENGINEERING
             </h2>
             <p className="text-base opacity-80 max-w-2xl mx-auto mb-12">
-              44 specialized agents · 86 skills · 14-cycle ML pipeline<br />9 mortal sins as quality gates
+              49 specialized agents · 97 skills · 47 ADRs · 14-cycle ML pipeline (47 phases)<br />9 mortal sins as quality gates
             </p>
             <div className="w-full max-w-3xl border border-line bg-navy mb-12 text-left relative shadow-2xl">
               <div className="border-b border-line flex px-4 py-2 items-center justify-between bg-primary/5">
@@ -78,10 +78,10 @@ export default function Home() {
 
         {/* STATS */}
         <section className="border-b border-line grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 text-sm uppercase tracking-wider relative">
-          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">43</div><div className="text-[10px] opacity-60 leading-tight">Agents<br />(20·14·9)</div></div>
-          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">86</div><div className="text-[10px] opacity-60 leading-tight">Specialized<br />Skills</div></div>
-          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">44</div><div className="text-[10px] opacity-60 leading-tight">Hooks<br />(34 + 10 lib)</div></div>
-          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">8</div><div className="text-[10px] opacity-60 leading-tight">Architecture<br />Decision Records</div></div>
+          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">49</div><div className="text-[10px] opacity-60 leading-tight">Agents<br />(41·8·0)</div></div>
+          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">97</div><div className="text-[10px] opacity-60 leading-tight">Specialized<br />Skills</div></div>
+          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">74</div><div className="text-[10px] opacity-60 leading-tight">Hooks<br />(55 + 19 lib)</div></div>
+          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">47</div><div className="text-[10px] opacity-60 leading-tight">Architecture<br />Decision Records</div></div>
           <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">248</div><div className="text-[10px] opacity-60 leading-tight">Commits<br />(Last 30 Days)</div></div>
           <div className="stat-pane bg-primary/5 flex flex-col justify-center">
             <div className="flex justify-between items-center mb-2 border-b border-line/50 pb-2"><span className="text-[10px] opacity-60">Mortal Sins</span><span className="font-mondwest text-xl">0</span></div>
@@ -360,7 +360,7 @@ export default function Home() {
             <span className="pl-4 lg:pl-0">GitHub repo (arca-claude-code)</span>
           </a>
           <div className="grid grid-cols-2 gap-4">
-            <a href={`${GITHUB_URL}/tree/main/docs/adr`} target="_blank" rel="noreferrer" className="border border-line px-4 py-4 text-[10px] tracking-[0.1em] uppercase hover:bg-primary/10 transition-colors text-center opacity-80 hover:opacity-100">Read all 11 ADRs</a>
+            <a href={`${GITHUB_URL}/tree/main/docs/adr`} target="_blank" rel="noreferrer" className="border border-line px-4 py-4 text-[10px] tracking-[0.1em] uppercase hover:bg-primary/10 transition-colors text-center opacity-80 hover:opacity-100">Read all 47 ADRs</a>
             <a href={`mailto:${CONTACT_EMAIL}?subject=A.R.C.A.%20%E2%80%94%20Fellows%202026`} className="border border-line px-4 py-4 text-[10px] tracking-[0.1em] uppercase bg-primary text-navyDarker hover:opacity-90 transition-opacity text-center font-bold">Contact</a>
           </div>
         </div>

@@ -9,14 +9,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: "#0D1B2A",
-        navyDarker: "#08111C",
-        primary: "#7BB3FF",
-        accent: "#00E5FF",
+        // openclaw.ai palette — legacy aliases preserve existing class semantics
+        navy: "#050810",
+        navyDarker: "#090E18",
+        primary: "#F0F4FF",
+        accent: "#F0F4FF",
+        // explicit openclaw tokens
+        "oc-bg": "#050810",
+        "oc-surface": "#090E18",
+        "oc-border": "#191D28",
+        "oc-fg": "#F0F4FF",
       },
       fontFamily: {
-        mono: ['"Courier Prime"', "monospace"],
-        serif: ['"Cormorant"', "serif"],
+        mono: ['"Satoshi"', '"Courier Prime"', "monospace"],
+        serif: ['"Clash Display"', '"Cormorant"', "serif"],
+        display: ['"Clash Display"', "system-ui", "sans-serif"],
+        body: ['"Satoshi"', "system-ui", "sans-serif"],
       },
     },
   },

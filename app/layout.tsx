@@ -4,12 +4,12 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "A.R.C.A. — Adversarial Multi-Agent System for ML/AI Engineering",
   description:
-    "A.R.C.A. — Adversarial multi-agent system for ML/AI engineering. 43 specialized agents, 80 skills, 14-cycle ML pipeline, 9 mortal sins as quality gates. Built with Claude. Applied to the Anthropic Fellows program 2026.",
+    "A.R.C.A. — Adversarial multi-agent system for ML/AI engineering. 49 specialized agents, 97 skills, 47 ADRs, 14-cycle ML pipeline (47 phases), 9 mortal sins as quality gates. Built with Claude. Applied to the Anthropic Fellows program 2026.",
   authors: [{ name: "Adrian Infantes" }],
   openGraph: {
     title: "A.R.C.A. — Adversarial Multi-Agent System",
     description:
-      "43 specialized agents, 80 skills, 14-cycle ML pipeline, 9 mortal sins as quality gates.",
+      "49 specialized agents, 97 skills, 47 ADRs, 14-cycle ML pipeline (47 phases), 9 mortal sins as quality gates.",
     type: "website",
   },
 };
@@ -22,14 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        {/* Fontshare CDN: Clash Display (display) + Satoshi (body) — openclaw.ai stack */}
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"
+          href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap"
           rel="stylesheet"
         />
       </head>

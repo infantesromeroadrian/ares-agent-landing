@@ -1,21 +1,34 @@
 @import "tailwindcss";
 
-/* Tailwind v4 CSS-first theme config (replaces tailwind.config.ts colors).
-   Custom palette tokens accessible as bg-navy, text-primary, border-line, etc. */
+/* openclaw.ai design system — flat 4-color palette, Clash Display + Satoshi.
+   Mapping is intentionally aliased onto the legacy navy/primary/accent token
+   names so existing utility classes (bg-navy, text-primary, border-line, etc.)
+   reorient to the new palette WITHOUT a full rewrite of every component. */
 @theme {
-  --color-navy: #0D1B2A;
-  --color-navyDarker: #08111C;
-  --color-primary: #7BB3FF;
-  --color-accent: #00E5FF;
-  --color-line: rgb(123 179 255 / 0.25);
-  --font-mono: "Courier Prime", ui-monospace, monospace;
-  --font-serif: "Cormorant", serif;
+  /* Legacy aliases (now mapped to openclaw values) */
+  --color-navy: #050810;
+  --color-navyDarker: #090E18;
+  --color-primary: #F0F4FF;
+  --color-accent: #F0F4FF;
+  --color-line: rgb(240 244 255 / 0.18);
+
+  /* Explicit openclaw tokens for new code */
+  --color-oc-bg: #050810;
+  --color-oc-surface: #090E18;
+  --color-oc-border: #191D28;
+  --color-oc-fg: #F0F4FF;
+  --color-oc-fg-muted: rgb(240 244 255 / 0.62);
+  --color-oc-fg-faint: rgb(240 244 255 / 0.36);
+
+  /* Font stacks — openclaw uses Clash Display (display/heading) + Satoshi (body) */
+  --font-mono: "Satoshi", "Courier Prime", ui-monospace, monospace;
+  --font-serif: "Clash Display", "Cormorant", serif;
+  --font-display: "Clash Display", system-ui, sans-serif;
+  --font-body: "Satoshi", system-ui, sans-serif;
 }
 
-/* Custom easing curves — Emil Kowalski's animations.dev recommendations.
-   Built-in CSS easings are weak; these custom curves give the punch that
-   signals intentional motion. Reusable across all CSS animations + Motion
-   library transitions. */
+/* Custom easing curves — Emil Kowalski animations.dev recommendations.
+   Preserved across the redesign as they are intent-of-motion, not visual style. */
 :root {
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -24,98 +37,96 @@
 
 @layer base {
   body {
-    background-color: #0D1B2A;
-    background-image:
-      linear-gradient(rgba(123, 179, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(123, 179, 255, 0.04) 1px, transparent 1px),
-      radial-gradient(ellipse at top, rgba(123, 179, 255, 0.06), transparent 60%);
-    background-size: 48px 48px, 48px 48px, 100% 100%;
-    background-position: 0 0, 0 0, center top;
-    color: #7BB3FF;
-    font-family: "Courier Prime", monospace;
-    line-height: 1.6;
+    background-color: #050810;
+    /* openclaw is FLAT — no grid, no radial gradient, no scanlines on body */
+    color: #F0F4FF;
+    font-family: "Satoshi", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 17.6px;
+    line-height: 1.55;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background-color: #7BB3FF;
-    color: #0D1B2A;
+    background-color: #F0F4FF;
+    color: #050810;
   }
 }
 
 @layer components {
+  /* Legacy class — was Cormorant serif. Now openclaw display heading (Clash Display). */
   .font-mondwest {
-    font-family: "Cormorant", serif;
+    font-family: "Clash Display", system-ui, sans-serif;
     letter-spacing: -0.02em;
-    font-weight: 700;
+    font-weight: 600;
   }
+
   .border-line {
-    border-color: rgba(123, 179, 255, 0.25);
+    border-color: rgb(240 244 255 / 0.18);
   }
-  .relief-section {
-    background-image: repeating-linear-gradient(
-      45deg,
-      transparent 0px,
-      transparent 22px,
-      rgba(123, 179, 255, 0.025) 22px,
-      rgba(123, 179, 255, 0.025) 23px
-    );
-  }
+
+  /* openclaw is flat — these legacy section textures are neutralized to no-op
+     so existing markup using these classes does not break, but the visual
+     noise (scanlines, diagonal relief) is removed. */
+  .relief-section,
   .scanline-section {
-    background-image: repeating-linear-gradient(
-      0deg,
-      rgba(123, 179, 255, 0.02) 0px,
-      rgba(123, 179, 255, 0.02) 1px,
-      transparent 1px,
-      transparent 4px
-    );
+    background-image: none;
   }
-  /* Per Emil Kowalski's Animation Decision Framework: avoid `transition: all`,
-     specify properties explicitly. Curves come from :root --ease-* variables
-     (Emil's animations.dev recommendations). */
+
   .hover-invert {
     transition:
       background-color 200ms var(--ease-out),
-      color 200ms var(--ease-out);
+      color 200ms var(--ease-out),
+      border-color 200ms var(--ease-out);
   }
   .hover-invert:hover {
-    background-color: #7BB3FF;
-    color: #0D1B2A;
+    background-color: #F0F4FF;
+    color: #050810;
+    border-color: #F0F4FF;
   }
-  /* Buttons must feel responsive to press — Emil's mandatory rule.
-     Subtle scale on :active gives instant feedback that the UI heard the user. */
+
   .press-feedback {
     transition: transform 160ms var(--ease-out);
   }
   .press-feedback:active {
     transform: scale(0.97);
   }
-  /* Glassmorphism — Krehel's "production polish" depth without shouting.
-     Use SPARINGLY on cards or panels that need elevation hierarchy. Heavy
-     blur kills perf especially on Safari, kept under 20px (Emil's caveat). */
+
+  /* Glassmorphism — kept for component compat, but reskinned to openclaw flat
+     so it no longer reads as glass; it now reads as a slightly elevated surface. */
   .glass {
-    background: rgb(13 27 42 / 0.55);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgb(123 179 255 / 0.18);
+    background: #090E18;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid #191D28;
+    border-radius: 12px;
   }
-  /* Accent CTA — uses the unused #00E5FF token from the palette to give
-     the primary action a distinct visual weight without breaking the
-     mono-blue handbook aesthetic. */
+
+  /* Accent CTA — reskinned. openclaw uses solid white-on-black for primary,
+     not glow / cyan. */
   .cta-accent {
-    background-color: rgb(0 229 255 / 0.08);
-    color: #00E5FF;
-    border: 1px solid rgb(0 229 255 / 0.4);
+    background-color: #F0F4FF;
+    color: #050810;
+    border: 1px solid #F0F4FF;
+    border-radius: 12px;
     transition:
       background-color 200ms var(--ease-out),
       color 200ms var(--ease-out),
       border-color 200ms var(--ease-out);
   }
   .cta-accent:hover {
-    background-color: rgb(0 229 255 / 0.18);
-    border-color: rgb(0 229 255 / 0.7);
+    background-color: rgb(240 244 255 / 0.88);
+    border-color: rgb(240 244 255 / 0.88);
   }
+
+  /* openclaw ⟩ section marker — reusable inline glyph */
+  .oc-mark::before {
+    content: "\27E9";
+    color: #F0F4FF;
+    margin-right: 0.5em;
+    font-weight: 600;
+  }
+
   .tree-line::before {
     content: "";
     position: absolute;
@@ -123,7 +134,7 @@
     top: 24px;
     bottom: -40px;
     width: 1px;
-    background: rgba(123, 179, 255, 0.25);
+    background: rgb(240 244 255 / 0.18);
   }
   .tree-node:last-child .tree-line::before {
     display: none;
@@ -135,11 +146,11 @@
     top: 24px;
     width: 24px;
     height: 1px;
-    background: rgba(123, 179, 255, 0.25);
+    background: rgb(240 244 255 / 0.18);
   }
   .stat-pane {
-    border-right: 1px solid rgba(123, 179, 255, 0.25);
-    border-bottom: 1px solid rgba(123, 179, 255, 0.25);
+    border-right: 1px solid rgb(240 244 255 / 0.18);
+    border-bottom: 1px solid rgb(240 244 255 / 0.18);
     padding: 2rem 1.5rem;
   }
   .hide-scrollbar::-webkit-scrollbar {
@@ -156,15 +167,10 @@
   display: inline-block;
   width: 8px;
   height: 15px;
-  background-color: #7BB3FF;
+  background-color: #F0F4FF;
   vertical-align: text-bottom;
 }
 
-/* Pulse: kept available but NEVER use `animation: pulse 2s infinite` directly.
-   Per Emil's frequency rule, infinite animations on UI users see often are
-   anti-pattern — they become visual noise without purpose.
-   Use `.pulse-once` for one-shot reveal; loop usage requires explicit
-   justification (e.g. live indicator on cron-driven activity feed). */
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50%      { opacity: 0.3; }
@@ -190,25 +196,22 @@
   }
 }
 
+/* Scrollbar — openclaw mono tones */
 ::-webkit-scrollbar {
   height: 4px;
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #0D1B2A;
-  border-top: 1px solid rgba(123, 179, 255, 0.1);
+  background: #050810;
+  border-top: 1px solid rgb(240 244 255 / 0.08);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(123, 179, 255, 0.4);
+  background: rgb(240 244 255 / 0.25);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(123, 179, 255, 0.8);
+  background: rgb(240 244 255 / 0.5);
 }
 
-/* Accessibility — prefers-reduced-motion compliance.
-   Per WCAG 2.2 + Emil's animations.dev principle: reduced motion means fewer
-   and gentler animations, NOT zero. Keep opacity transitions for comprehension,
-   remove movement and infinite loops that can trigger vestibular disorders. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
