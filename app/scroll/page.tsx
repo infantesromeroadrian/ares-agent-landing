@@ -1,374 +1,508 @@
-import { GITHUB_URL, CONTACT_EMAIL, cycles, htbPhases, gates, sins, cases, stack, agentCategories, skillFamilies, adrs, aiSlopSignals, forbiddenPatterns } from "@/app/lib/arca-data";
+import {
+  GITHUB_URL,
+  CONTACT_EMAIL,
+  cycles,
+  gates,
+  sins,
+  stack,
+  adrs,
+} from "@/app/lib/arca-data";
 import { RevealOnScroll } from "@/app/components/RevealOnScroll";
-import { StaggeredList, StaggeredItem } from "@/app/components/StaggeredList";
 
+/* openclaw.ai structural clone — estricto.
+   Hero · ⟩ What ARCA Does · ⟩ Quick Look · ⟩ The Gate Chain ·
+   ⟩ Built On · ⟩ Pipeline · ⟩ Architecture Decisions · ⟩ 9 Mortal Sins ·
+   ⟩ Stack · ⟩ Apply / Contact · Footer
 
+   Visual language: flat 4-color palette already in globals.css.
+   Section marker ⟩ (U+27E9) on every H2 (openclaw signature).
+   Cards: surface #090E18, border #191D28, radius 12px, no shadow.
+   Primary CTA: white-on-black. Ghost CTA: surface with border. */
 
+const HERO_HEADLINE = "The adversarial agentic system that actually ships code.";
+const HERO_TAGLINE =
+  "49 specialized agents. 47 ADRs. One 14-cycle ML pipeline. Zero AI slop tolerated.";
 
-function ModelTag({ model }: { model: "opus" | "sonnet" | "haiku" }) {
-  const styles = {
-    opus: "bg-accent/20 text-accent border-accent/40",
-    sonnet: "bg-primary/15 text-primary border-primary/30",
-    haiku: "bg-primary/5 text-primary/70 border-primary/20",
-  };
+const STATS = [
+  { value: "49", label: "Specialized Agents", sub: "41 Opus · 8 Sonnet · 0 Haiku" },
+  { value: "97", label: "Skills Catalog", sub: "Loaded surgically per task" },
+  { value: "47", label: "Architecture Decisions", sub: "Nygard ADRs, 36 active" },
+  { value: "14", label: "Pipeline Cycles", sub: "47 phases · Discovery → Sunset" },
+  { value: "74", label: "Bash Hooks", sub: "45 entries · 11 lifecycle events" },
+  { value: "20", label: "MCP Servers", sub: "Engram, GitHub, Obsidian, +17" },
+];
+
+const PILLARS = [
+  {
+    title: "49 Specialized Agents",
+    body:
+      "Each with its own model assignment (Opus for reasoning, Sonnet for implementation), specific role, blocking gate and audit responsibility. From @data-validator to @ai-red-teamer.",
+  },
+  {
+    title: "Adversarial Gate Chain",
+    body:
+      "Producer → @math-critic → @debt-detector → @code-critic → @chief-architect. No code reaches main without explicit sign-off. 74 bash hooks enforce the chain at PreToolUse / PostToolUse level.",
+  },
+  {
+    title: "14-Cycle ML Pipeline",
+    body:
+      "From C1 Discovery to C14 Sunset, 47 phases with blocking gates at every exit. Excalidraw diagrams mandatory in C1/C4/C6/C10/C12. ADR required in C4. Rollback plan in C10.",
+  },
+  {
+    title: "47 Documented Decisions",
+    body:
+      "Every architectural choice ships as a Nygard ADR: context, alternatives weighed, consequences. 36 active records cover architecture, security, governance and the meta-system itself.",
+  },
+  {
+    title: "97-Skill Catalog",
+    body:
+      "OWASP security, ML engineering, DevOps, RAG patterns, agent orchestration, HTB CTF methodology, prompt engineering. @skill-router selects ≤3 per task — no blind context bloat.",
+  },
+  {
+    title: "Honest Disclosure",
+    body:
+      "Inverted-style canary tests assert known bugs still occur, so a future change cannot silently mask a structural limit. 19 AI-slop signals detected pre-merge. Zero hidden state.",
+  },
+];
+
+const GATE_STEPS = [
+  {
+    stage: "01",
+    name: "@math-critic",
+    role: "Mathematical correctness",
+    body:
+      "Validates loss functions, gradients, numerical stability, attention scaling, sampling strategies. Blocking on producer code from @ml-engineer / @dl-engineer / @ai-engineer in C3, C5, C6, C8.",
+  },
+  {
+    stage: "02",
+    name: "@debt-detector",
+    role: "Inline mechanic",
+    body:
+      "Catches unused imports / functions, TODOs without tickets, logical duplication (>3 sites), cyclomatic complexity over 10. Blocking on producer output in C6 and C8.",
+  },
+  {
+    stage: "03",
+    name: "@code-critic",
+    role: "Terminal gate",
+    body:
+      "19 isolated AI-slop signals. Audits architecture, strict security adherence, runtime performance, deep maintainability limits. No code is final without explicit approval.",
+  },
+  {
+    stage: "04",
+    name: "@chief-architect",
+    role: "Pre-deploy seal",
+    body:
+      "C10 deploy gate. Cross-checks that @code-critic, @math-critic, @model-evaluator, @tester and @ai-red-teamer signed off. Sin firma, no hay deploy.",
+  },
+];
+
+const BUILT_ON = [
+  "Claude Opus 4.7",
+  "Anthropic SDK",
+  "MCP",
+  "LangGraph",
+  "LangChain",
+  "Engram",
+  "Ollama",
+  "Qwen 2.5 7B",
+  "Obsidian",
+  "Excalidraw",
+  "GitHub",
+  "Vercel",
+  "Next.js 15",
+  "Tailwind v4",
+  "PostgreSQL",
+  "RTX 2000 Ada",
+];
+
+function Mark() {
   return (
-    <span className={`text-[9px] font-mono uppercase border px-1.5 py-0.5 ${styles[model]}`}>
-      {model}
+    <span aria-hidden="true" className="text-primary mr-2 font-display">
+      &#10217;
     </span>
+  );
+}
+
+function PrimaryCTA({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center gap-2 rounded-[12px] bg-primary px-6 py-3 font-body text-sm font-semibold text-navy transition-colors hover:bg-primary/90"
+    >
+      {children}
+      <span aria-hidden="true">-&gt;</span>
+    </a>
+  );
+}
+
+function GhostCTA({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target={href.startsWith("http") ? "_blank" : undefined}
+      rel={href.startsWith("http") ? "noreferrer" : undefined}
+      className="inline-flex items-center gap-2 rounded-[12px] border border-line bg-navyDarker px-6 py-3 font-body text-sm font-semibold text-primary transition-colors hover:border-primary/40"
+    >
+      {children}
+      <span aria-hidden="true">-&gt;</span>
+    </a>
   );
 }
 
 export default function Home() {
   return (
-    <div className="max-w-[1400px] w-full mx-auto border-x border-line min-h-screen flex flex-col relative">
+    <div className="mx-auto flex min-h-screen w-full max-w-[1120px] flex-col bg-navy px-6 font-body text-primary">
       {/* HEADER */}
-      <header className="border-b border-line grid grid-cols-1 md:grid-cols-[auto_1fr_auto]">
-        <div className="p-6 md:px-10 border-b md:border-b-0 md:border-r border-line flex items-center">
-          <h1 className="font-mondwest text-[36.75px] leading-none uppercase tracking-tight">A.R.C.A.</h1>
-        </div>
-        <div className="p-6 md:px-10 hidden md:flex items-center text-xs tracking-widest uppercase opacity-60">
-          Adversarial Multi-Agent Engine / Pipeline Interface
-        </div>
-        <div className="p-6 md:px-10 border-l border-line flex gap-8 items-center text-[11px] tracking-[0.2em] uppercase">
-          <a href="#agents" className="hover:opacity-100 opacity-60 transition-opacity">Agents</a>
-          <a href="#adrs" className="hover:opacity-100 opacity-60 transition-opacity">ADRs</a>
-          <a href={GITHUB_URL} className="hover:opacity-100 opacity-60 transition-opacity" target="_blank" rel="noreferrer">GitHub</a>
-          <span className="h-2 w-2 rounded-full bg-primary/40 pulse" />
-        </div>
+      <header className="flex items-center justify-between border-b border-line py-6">
+        <a href="/" className="font-display text-xl font-semibold tracking-tight">
+          A.R.C.A.
+        </a>
+        <nav className="hidden gap-8 font-body text-sm md:flex">
+          <a href="#what" className="opacity-70 transition-opacity hover:opacity-100">
+            What it does
+          </a>
+          <a href="#gates" className="opacity-70 transition-opacity hover:opacity-100">
+            Gate chain
+          </a>
+          <a href="#pipeline" className="opacity-70 transition-opacity hover:opacity-100">
+            Pipeline
+          </a>
+          <a href="#adrs" className="opacity-70 transition-opacity hover:opacity-100">
+            ADRs
+          </a>
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="opacity-70 transition-opacity hover:opacity-100"
+          >
+            GitHub
+          </a>
+        </nav>
       </header>
 
       <main className="flex-grow">
-        {/* HERO */}
-        <RevealOnScroll className="border-b border-line relative overflow-hidden flex flex-col items-center justify-center py-24 md:py-32 px-6 scanline-section">
-          <div className="z-10 text-center max-w-4xl mx-auto flex flex-col items-center">
-            <span className="text-xs tracking-[0.3em] uppercase opacity-70 mb-8 border border-line px-4 py-1 inline-block">System Init</span>
-            <h2 className="font-mondwest text-[40px] md:text-[64px] leading-[0.9] mb-8">
-              ADVERSARIAL MULTI-AGENT SYSTEM<br />FOR ML/AI ENGINEERING
-            </h2>
-            <p className="text-base opacity-80 max-w-2xl mx-auto mb-12">
-              49 specialized agents · 97 skills · 47 ADRs · 14-cycle ML pipeline (47 phases)<br />9 mortal sins as quality gates
-            </p>
-            <div className="w-full max-w-3xl border border-line bg-navy mb-12 text-left relative shadow-2xl">
-              <div className="border-b border-line flex px-4 py-2 items-center justify-between bg-primary/5">
-                <div className="flex gap-2">
-                  <span className="w-1.5 h-1.5 bg-primary/30" />
-                  <span className="w-1.5 h-1.5 bg-primary/30" />
-                  <span className="w-1.5 h-1.5 bg-primary/30" />
+        {/* ============ HERO ============ */}
+        <RevealOnScroll className="py-24 md:py-32">
+          <p className="mb-6 font-body text-xs uppercase tracking-[0.18em] opacity-60">
+            <Mark />
+            Adversarial multi-agent system · ML / AI engineering
+          </p>
+          <h1 className="mb-6 max-w-4xl font-display text-[2.75rem] font-semibold leading-[1.05] tracking-tight md:text-[4.5rem]">
+            {HERO_HEADLINE}
+          </h1>
+          <p className="mb-10 max-w-2xl font-display text-xl font-medium leading-snug opacity-90 md:text-2xl">
+            {HERO_TAGLINE}
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <PrimaryCTA href={GITHUB_URL}>View on GitHub</PrimaryCTA>
+            <GhostCTA href="#adrs">Read the ADRs</GhostCTA>
+          </div>
+
+          {/* Stats strip — openclaw-style flat horizontal */}
+          <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-[12px] border border-line bg-line md:grid-cols-3 lg:grid-cols-6">
+            {STATS.map((s) => (
+              <div key={s.label} className="bg-navy p-5">
+                <div className="font-display text-3xl font-semibold leading-none md:text-4xl">
+                  {s.value}
                 </div>
-                <span className="text-[10px] tracking-widest uppercase opacity-50">arca.gate_chain</span>
+                <div className="mt-3 font-body text-xs uppercase tracking-[0.12em] opacity-70">
+                  {s.label}
+                </div>
+                <div className="mt-1 font-body text-[11px] opacity-50">{s.sub}</div>
               </div>
-              <div className="p-6 text-sm text-primary/80 overflow-x-auto whitespace-nowrap">
-                <span className="opacity-50">{">"} arca run pipeline --strict</span><br /><br />
-                <span className="opacity-60 text-xs">[sys] Evaluating gate chain...</span><br />
-                <span className="text-primary mt-2 block">
-                  → producer<br />
-                  &nbsp;&nbsp;↳ <span className="opacity-70">awaiting</span> @math-critic<br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;↳ <span className="opacity-70">awaiting</span> @debt-detector<br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ <span className="opacity-70">awaiting</span> @code-critic<br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ <span className="opacity-70">awaiting</span> @git-master<span className="caret-blink" />
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="border border-line px-8 py-4 text-xs tracking-[0.2em] uppercase hover-invert">View on GitHub</a>
-              <a href="#adrs" className="border border-line px-8 py-4 text-xs tracking-[0.2em] uppercase bg-primary text-navyDarker hover:bg-transparent hover:text-primary transition-colors">Read ADRs</a>
-            </div>
+            ))}
           </div>
         </RevealOnScroll>
 
-        {/* STATS */}
-        <section className="border-b border-line grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 text-sm uppercase tracking-wider relative">
-          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">49</div><div className="text-[10px] opacity-60 leading-tight">Agents<br />(41·8·0)</div></div>
-          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">97</div><div className="text-[10px] opacity-60 leading-tight">Specialized<br />Skills</div></div>
-          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">74</div><div className="text-[10px] opacity-60 leading-tight">Hooks<br />(55 + 19 lib)</div></div>
-          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">47</div><div className="text-[10px] opacity-60 leading-tight">Architecture<br />Decision Records</div></div>
-          <div className="stat-pane"><div className="font-mondwest text-4xl mb-2 text-primary">248</div><div className="text-[10px] opacity-60 leading-tight">Commits<br />(Last 30 Days)</div></div>
-          <div className="stat-pane bg-primary/5 flex flex-col justify-center">
-            <div className="flex justify-between items-center mb-2 border-b border-line/50 pb-2"><span className="text-[10px] opacity-60">Mortal Sins</span><span className="font-mondwest text-xl">0</span></div>
-            <div className="flex justify-between items-center mb-2 border-b border-line/50 pb-2"><span className="text-[10px] opacity-60">CI Green</span><span className="font-mondwest text-xl">9/9</span></div>
-            <div className="flex justify-between items-center"><span className="text-[10px] opacity-60">Tests</span><span className="font-mondwest text-xl">104</span></div>
-          </div>
-        </section>
-
-        {/* GATES + SINS */}
-        <section className="grid grid-cols-1 lg:grid-cols-[1fr_auto] border-b border-line">
-          <div className="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-line">
-            <h3 className="text-xs tracking-[0.3em] uppercase opacity-50 mb-12 flex items-center gap-4"><span>01</span><span className="h-px bg-primary/25 flex-grow" /><span>Adversarial Gate Chain</span></h3>
-            <div className="pl-10 relative">
-              {gates.map((g) => (
-                <div key={g.id} className="relative mb-12 tree-node">
-                  <div className="tree-line" />
-                  <div className="tree-branch text-primary opacity-50 text-[10px] -left-[45px] top-[18px] absolute bg-navy px-1">◆</div>
-                  <div className="border border-line p-6 bg-navy relative z-10 group hover:border-primary/60 transition-colors">
-                    <div className="flex justify-between items-start mb-4">
-                      <h4 className="font-mondwest text-2xl text-primary flex items-center gap-3">
-                        <span className="text-xs font-mono opacity-50 border border-line px-1 rounded-sm">{g.id}</span>
-                        {g.name}
-                      </h4>
-                      <span className="text-[10px] uppercase border font-mono border-line px-2 py-1 bg-primary/10 text-primary">{g.label}</span>
-                    </div>
-                    <p className="text-sm opacity-70 leading-relaxed">{g.body}</p>
-                  </div>
-                </div>
-              ))}
-              <div className="relative tree-node">
-                <div className="tree-branch text-primary opacity-50 text-[10px] -left-[45px] top-[18px] absolute bg-navy px-1">◆</div>
-                <div className="pl-4 py-4 flex items-center gap-4 opacity-50"><span>↳</span><span className="uppercase tracking-widest text-xs border-b border-line border-dashed">@git-master (Release)</span></div>
+        {/* ============ ⟩ WHAT ARCA DOES (6-card grid like openclaw "What It Does") ============ */}
+        <RevealOnScroll id="what" className="border-t border-line py-20 md:py-24">
+          <h2 className="mb-3 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem]">
+            <Mark />
+            What ARCA does
+          </h2>
+          <p className="mb-12 max-w-2xl opacity-70">
+            Six pillars that turn a single AI coding assistant into a regulated multi-agent
+            engineering team. Pure configuration — no runtime, no server, no container.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {PILLARS.map((p) => (
+              <div
+                key={p.title}
+                className="rounded-[12px] border border-line bg-navyDarker p-6 transition-colors hover:border-primary/30"
+              >
+                <h3 className="mb-3 font-display text-lg font-semibold">{p.title}</h3>
+                <p className="text-sm leading-relaxed opacity-75">{p.body}</p>
               </div>
+            ))}
+          </div>
+        </RevealOnScroll>
+
+        {/* ============ ⟩ QUICK LOOK (terminal tabs — openclaw Quick Start clone) ============ */}
+        <RevealOnScroll className="border-t border-line py-20 md:py-24">
+          <h2 className="mb-3 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem]">
+            <Mark />
+            Quick look
+          </h2>
+          <p className="mb-12 max-w-2xl opacity-70">
+            ARCA lives inside Claude Code&rsquo;s native extension points: markdown agent
+            definitions, bash hooks, JSON settings. Clone the repo, run install, work.
+          </p>
+
+          <div className="overflow-hidden rounded-[12px] border border-line bg-navyDarker">
+            {/* Tab strip */}
+            <div className="flex items-center justify-between border-b border-line px-4 py-2 text-[11px] uppercase tracking-[0.12em] opacity-60">
+              <div className="flex gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary/30" />
+                <span className="h-1.5 w-1.5 rounded-full bg-primary/30" />
+                <span className="h-1.5 w-1.5 rounded-full bg-primary/30" />
+              </div>
+              <span>arca.install</span>
             </div>
+            {/* Body */}
+            <pre className="overflow-x-auto p-6 text-sm leading-relaxed">
+              <code className="font-body">
+                <span className="opacity-50">{"# 1. clone"}</span>
+                {"\n"}
+                <span className="opacity-80">{"$ git clone "}</span>
+                <span className="text-primary">https://github.com/infantesromeroadrian/arca-claude-code</span>
+                {"\n"}
+                <span className="opacity-80">{"$ cd arca-claude-code"}</span>
+                {"\n\n"}
+                <span className="opacity-50">{"# 2. install (settings + hooks + skills symlinked into ~/.claude)"}</span>
+                {"\n"}
+                <span className="opacity-80">{"$ ./install.sh"}</span>
+                {"\n\n"}
+                <span className="opacity-50">{"# 3. verify gate chain"}</span>
+                {"\n"}
+                <span className="opacity-80">{"$ claude --debug --agent code-critic 'review this'"}</span>
+                {"\n"}
+                <span className="text-primary opacity-90">
+                  {"  ↳ @math-critic"}
+                  {"\n"}
+                  {"    ↳ @debt-detector"}
+                  {"\n"}
+                  {"      ↳ @code-critic"}
+                  {"\n"}
+                  {"        ↳ @chief-architect"}
+                </span>
+                <span className="caret-blink ml-1" />
+              </code>
+            </pre>
           </div>
+        </RevealOnScroll>
 
-          <div className="p-8 md:p-12 lg:w-[400px] bg-primary/5 flex flex-col h-full relative">
-            <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary/50" />
-            <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-primary/50" />
-            <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-primary/50" />
-            <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-primary/50" />
-            <h4 className="font-mondwest text-xl mb-6 uppercase tracking-widest border-b border-line pb-4">9 Mortal Sins</h4>
-            <p className="text-xs opacity-60 mb-8 italic">Triggering any axiom fails the pipeline cycle and routes to escalation protocol.</p>
-            <ul className="space-y-4 text-xs flex-grow">
-              {sins.map((s) => (
-                <li key={s.n} className={s.highlight ? "flex gap-3 text-navyDarker bg-accent px-2 py-1 font-bold" : "flex gap-3"}>
-                  <span className={s.highlight ? "opacity-50 text-navyDarker" : "opacity-50"}>{s.n}</span>
-                  <span>{s.text}</span>
-                </li>
-              ))}
-            </ul>
+        {/* ============ ⟩ THE GATE CHAIN ============ */}
+        <RevealOnScroll id="gates" className="border-t border-line py-20 md:py-24">
+          <h2 className="mb-3 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem]">
+            <Mark />
+            The gate chain
+          </h2>
+          <p className="mb-12 max-w-2xl opacity-70">
+            Four adversarial agents stand between producer code and main. Each one blocks.
+            Bypass leaves an audit trail.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {GATE_STEPS.map((g) => (
+              <div
+                key={g.stage}
+                className="flex h-full flex-col rounded-[12px] border border-line bg-navyDarker p-6"
+              >
+                <div className="mb-4 font-body text-[11px] uppercase tracking-[0.18em] opacity-50">
+                  Stage {g.stage}
+                </div>
+                <h3 className="mb-1 font-display text-lg font-semibold">{g.name}</h3>
+                <div className="mb-4 font-body text-xs uppercase tracking-[0.1em] opacity-60">
+                  {g.role}
+                </div>
+                <p className="text-sm leading-relaxed opacity-75">{g.body}</p>
+              </div>
+            ))}
           </div>
-        </section>
+        </RevealOnScroll>
 
-        {/* PIPELINE ML */}
-        <RevealOnScroll className="border-b border-line overflow-hidden bg-navy flex flex-col relief-section">
-          <div className="p-8 pb-0 border-b border-line flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <h3 className="text-xs tracking-[0.3em] uppercase opacity-50 flex items-center gap-4"><span>02</span><span>Pipeline ML v4.0 — 14 Cycles</span></h3>
-            <p className="text-[10px] opacity-60 max-w-sm md:text-right pb-4">Each cycle blocks until its gate is signed. Failed phase returns to producer with feedback.<br />(max 2 loops → escalate to architect-ai).</p>
+        {/* ============ ⟩ BUILT ON (pill cloud — openclaw "Works With Everything") ============ */}
+        <RevealOnScroll className="border-t border-line py-20 md:py-24">
+          <h2 className="mb-3 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem]">
+            <Mark />
+            Built on
+          </h2>
+          <p className="mb-10 max-w-2xl opacity-70">
+            The stack underneath. Each one earned its place with a documented ADR.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {BUILT_ON.map((b) => (
+              <span
+                key={b}
+                className="rounded-[12px] border border-line bg-navyDarker px-4 py-2 font-body text-sm transition-colors hover:border-primary/40"
+              >
+                {b}
+              </span>
+            ))}
           </div>
-          <StaggeredList className="flex overflow-x-auto hide-scrollbar border-b border-line select-none cursor-grab active:cursor-grabbing pb-0">
+        </RevealOnScroll>
+
+        {/* ============ ⟩ THE 14-CYCLE PIPELINE ============ */}
+        <RevealOnScroll id="pipeline" className="border-t border-line py-20 md:py-24">
+          <h2 className="mb-3 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem]">
+            <Mark />
+            The 14-cycle pipeline
+          </h2>
+          <p className="mb-12 max-w-2xl opacity-70">
+            From Discovery to Sunset across 47 phases. Each cycle has a blocking gate at its
+            exit — owned by a specific agent.
+          </p>
+          <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7">
             {cycles.map((c) => (
-              <StaggeredItem key={c.id} className={c.wait
-                ? "flex-shrink-0 w-[200px] border-r border-line p-6 bg-primary/10 hover:bg-primary/20 transition-colors group relative"
-                : "flex-shrink-0 w-[200px] border-r border-line p-6 hover:bg-primary/5 transition-colors group"}>
-                {c.wait && <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary pulse-once" />}
-                <div className={c.wait ? "text-[10px] opacity-70 text-primary mb-4 font-mono" : "text-[10px] opacity-40 mb-4 font-mono"}>
-                  {c.wait ? `${c.id} - [WAIT]` : c.id}
+              <div
+                key={c.id}
+                className="rounded-[12px] border border-line bg-navyDarker p-4"
+              >
+                <div className="font-display text-2xl font-semibold leading-none">{c.id}</div>
+                <div className="mt-2 font-body text-sm">{c.name}</div>
+                <div className="mt-2 font-body text-[10px] uppercase tracking-[0.12em] opacity-50">
+                  @{c.owner}
                 </div>
-                <div className={c.wait ? "font-mondwest text-lg uppercase tracking-wide text-primary mb-2" : "font-mondwest text-lg uppercase tracking-wide mb-2"}>
-                  {c.name}
-                </div>
-                <div className="text-[9px] opacity-50 font-mono mt-2 pt-2 border-t border-primary/15">
-                  → {c.owner}
-                </div>
-              </StaggeredItem>
-            ))}
-          </StaggeredList>
-        </RevealOnScroll>
-
-        {/* HTB PIPELINE */}
-        <section className="border-b border-line bg-navy">
-          <div className="p-8 border-b border-line flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <h3 className="text-xs tracking-[0.3em] uppercase opacity-50 flex items-center gap-4"><span>03</span><span>HTB Pipeline — 6 Phases (Offensive Security)</span></h3>
-            <p className="text-[10px] opacity-60 max-w-sm md:text-right">Activates only under Anthropic CVP authorization + legitimate HTB scope.<br />Hard rules: CVE-first gate · Flag-viability gate · 3-strike abort · No exfil outside lab.</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-y md:divide-y-0 md:divide-x divide-primary/25">
-            {htbPhases.map((p) => (
-              <div key={p.id} className="p-6 hover:bg-primary/5 transition-colors">
-                <div className="text-[10px] opacity-40 mb-3 font-mono">{p.id}</div>
-                <div className="font-mondwest text-base uppercase tracking-wide mb-2">{p.name}</div>
-                <div className="text-[10px] opacity-60 leading-relaxed">{p.desc}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* CASE STUDIES */}
-        <section id="cases" className="border-b border-line flex flex-col">
-          <div className="p-8 border-b border-line"><h3 className="text-xs tracking-[0.3em] uppercase opacity-50"><span>04</span> / Honest Engineering Log</h3></div>
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-primary/25">
-            {cases.map((c) => (
-              <article key={c.title} className="p-8 hover:bg-primary/[0.02] transition-colors relative">
-                <div className="absolute top-0 right-0 p-2 text-[10px] opacity-30">{c.code}</div>
-                <h4 className="font-mondwest text-xl mb-4 tracking-wide uppercase text-primary border-b border-dashed border-line pb-2 inline-block">{c.title}</h4>
-                <div className="text-xs opacity-70 mb-2 mt-4 font-mono text-primary/50">Subject: {c.subject}</div>
-                <p className="text-sm opacity-80 leading-relaxed mt-4">{c.body}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* AGENT ROSTER */}
-        <RevealOnScroll id="agents" className="border-b border-line">
-          <div className="p-8 border-b border-line">
-            <h3 className="text-xs tracking-[0.3em] uppercase opacity-50"><span>05</span> / Agent Roster — 43 Specialized Agents</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-primary/25">
-            {agentCategories.slice(0, 6).map((cat) => (
-              <div key={cat.title} className="p-6 border-b md:border-b border-primary/25 last:border-b-0">
-                <h4 className="font-mondwest text-base uppercase tracking-wider mb-4 text-primary">{cat.title}</h4>
-                <ul className="space-y-2">
-                  {cat.agents.map((a) => (
-                    <li key={a.name} className="flex items-center justify-between gap-3 text-xs">
-                      <span className="font-mono text-primary/90 truncate">@{a.name}</span>
-                      <span className="flex items-center gap-2 shrink-0">
-                        <span className="text-[9px] opacity-50 font-mono">{a.phases}</span>
-                        <ModelTag model={a.model} />
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-primary/25 border-t border-primary/25">
-            {agentCategories.slice(6).map((cat) => (
-              <div key={cat.title} className="p-6 border-b border-primary/25 last:border-b-0">
-                <h4 className="font-mondwest text-base uppercase tracking-wider mb-4 text-primary">{cat.title}</h4>
-                <ul className="space-y-2">
-                  {cat.agents.map((a) => (
-                    <li key={a.name} className="flex items-center justify-between gap-3 text-xs">
-                      <span className="font-mono text-primary/90 truncate">@{a.name}</span>
-                      <span className="flex items-center gap-2 shrink-0">
-                        <span className="text-[9px] opacity-50 font-mono">{a.phases}</span>
-                        <ModelTag model={a.model} />
-                      </span>
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
           </div>
         </RevealOnScroll>
 
-        {/* SKILLS CATALOG */}
-        <section className="border-b border-line">
-          <div className="p-8 border-b border-line">
-            <h3 className="text-xs tracking-[0.3em] uppercase opacity-50"><span>06</span> / Skills Catalog — 86 Specialized Skills (11 Families)</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 divide-y md:divide-y-0 md:divide-x lg:divide-x divide-primary/25">
-            {skillFamilies.map((f) => (
-              <div key={f.name} className="p-6 border-b border-primary/25 last:border-b-0 md:border-b md:last:border-b-0 lg:border-b">
-                <div className="flex justify-between items-baseline mb-3 border-b border-dashed border-line pb-2">
-                  <h4 className="font-mondwest text-base uppercase tracking-wider text-primary">{f.name}</h4>
-                  <span className="text-xs font-mono opacity-50">×{f.count}</span>
+        {/* ============ ⟩ ARCHITECTURE DECISIONS ============ */}
+        <RevealOnScroll id="adrs" className="border-t border-line py-20 md:py-24">
+          <h2 className="mb-3 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem]">
+            <Mark />
+            Architecture decisions
+          </h2>
+          <p className="mb-12 max-w-2xl opacity-70">
+            47 numbered ADRs. Every architectural choice carries context, alternatives weighed
+            and consequences. Below: the most recent 14.
+          </p>
+          <div className="overflow-hidden rounded-[12px] border border-line">
+            {adrs.map((a, i) => (
+              <a
+                key={a.n}
+                href={`${GITHUB_URL}/tree/main/docs/adr`}
+                target="_blank"
+                rel="noreferrer"
+                className={`flex items-start gap-6 bg-navyDarker p-4 transition-colors hover:bg-primary/[0.04] ${
+                  i !== adrs.length - 1 ? "border-b border-line" : ""
+                }`}
+              >
+                <div className="font-display text-base font-semibold opacity-60">
+                  ADR-{a.n}
                 </div>
-                <p className="text-[11px] opacity-70 leading-relaxed font-mono">{f.items}</p>
-              </div>
+                <div className="flex-grow font-body text-sm">{a.title}</div>
+                <div className="hidden font-body text-[11px] opacity-50 md:block">
+                  {a.date}
+                </div>
+                <div className="font-body text-[11px] uppercase tracking-[0.1em] opacity-60">
+                  {a.status.includes("Superseded") ? "Superseded" : "Active"}
+                </div>
+              </a>
             ))}
           </div>
-        </section>
-
-        {/* ADRs */}
-        <RevealOnScroll id="adrs" className="border-b border-line">
-          <div className="p-8 border-b border-line">
-            <h3 className="text-xs tracking-[0.3em] uppercase opacity-50"><span>07</span> / Architecture Decision Records — 8 Accepted</h3>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm font-mono">
-              <thead className="bg-primary/5 border-b border-line text-[10px] uppercase tracking-widest">
-                <tr>
-                  <th className="p-4 text-left opacity-60 w-16">N</th>
-                  <th className="p-4 text-left opacity-60">Title</th>
-                  <th className="p-4 text-left opacity-60 w-32">Status</th>
-                  <th className="p-4 text-left opacity-60 w-32">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {adrs.map((a) => (
-                  <tr key={a.n} className="border-b border-primary/15 hover:bg-primary/[0.02] transition-colors">
-                    <td className="p-4 opacity-50 font-bold">{a.n}</td>
-                    <td className="p-4 text-primary">
-                      <a href={`${GITHUB_URL}/blob/main/docs/adr/${a.n}-${a.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}.md`} target="_blank" rel="noreferrer" className="hover:underline">
-                        {a.title}
-                      </a>
-                    </td>
-                    <td className="p-4">
-                      <span className="text-[10px] uppercase border border-primary/30 px-2 py-1 bg-primary/10 text-primary">{a.status}</span>
-                    </td>
-                    <td className="p-4 opacity-60">{a.date}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="mt-6">
+            <GhostCTA href={`${GITHUB_URL}/tree/main/docs/adr`}>
+              Read all 47 ADRs on GitHub
+            </GhostCTA>
           </div>
         </RevealOnScroll>
 
-        {/* AI SLOP DETECTION */}
-        <section className="border-b border-line bg-navy relief-section">
-          <div className="p-8 border-b border-line flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <h3 className="text-xs tracking-[0.3em] uppercase opacity-50 flex items-center gap-4"><span>08</span><span>AI Slop Detection — 19 Signals That Block Merge</span></h3>
-            <p className="text-[10px] opacity-60 max-w-md md:text-right">Quantified detection — not vibes. Adversarial review by @code-critic blocks merge on any active signal.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-primary/15">
-            {aiSlopSignals.map((s, i) => (
-              <div key={i} className="p-5 border-b border-primary/15 flex items-start gap-4 text-xs hover:bg-primary/[0.02] transition-colors">
-                <span className="font-mondwest text-2xl text-primary opacity-40 leading-none w-8 shrink-0">
-                  {(i + 1).toString().padStart(2, "0")}
-                </span>
-                <span className="opacity-80 leading-relaxed">{s}</span>
+        {/* ============ ⟩ THE 9 MORTAL SINS ============ */}
+        <RevealOnScroll className="border-t border-line py-20 md:py-24">
+          <h2 className="mb-3 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem]">
+            <Mark />
+            The 9 mortal sins
+          </h2>
+          <p className="mb-12 max-w-2xl opacity-70">
+            Hardcoded violations that block the cycle and trigger visible escalation. No
+            warnings — direct block.
+          </p>
+          <div className="grid gap-3 md:grid-cols-3">
+            {sins.map((s) => (
+              <div
+                key={s.n}
+                className={`rounded-[12px] border p-5 ${
+                  s.highlight
+                    ? "border-primary/40 bg-primary/[0.04]"
+                    : "border-line bg-navyDarker"
+                }`}
+              >
+                <div className="mb-2 font-display text-2xl font-semibold leading-none opacity-60">
+                  {s.n}
+                </div>
+                <div className="font-body text-sm leading-snug">{s.text}</div>
               </div>
             ))}
           </div>
-        </section>
+        </RevealOnScroll>
 
-        {/* FORBIDDEN PATTERNS */}
-        <section className="border-b border-line">
-          <div className="p-8 border-b border-line">
-            <h3 className="text-xs tracking-[0.3em] uppercase opacity-50"><span>09</span> / Forbidden Patterns</h3>
-          </div>
-          <ul className="divide-y divide-primary/15">
-            {forbiddenPatterns.map((p, i) => (
-              <li key={i} className="p-6 flex items-start gap-6 hover:bg-primary/[0.02] transition-colors">
-                <span className="font-mono text-xs text-accent opacity-70 mt-1 shrink-0">[FORBIDDEN.0{i + 1}]</span>
-                <span className="text-sm opacity-90">{p}</span>
-              </li>
+        {/* ============ ⟩ STACK ============ */}
+        <RevealOnScroll className="border-t border-line py-20 md:py-24">
+          <h2 className="mb-3 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem]">
+            <Mark />
+            Stack
+          </h2>
+          <p className="mb-12 max-w-2xl opacity-70">
+            Runtime posture, model distribution, persistence, compute. No marketing — just
+            what is actually wired.
+          </p>
+          <dl className="grid gap-px overflow-hidden rounded-[12px] border border-line bg-line">
+            {stack.map((row) => (
+              <div
+                key={row.k}
+                className="grid grid-cols-1 gap-2 bg-navy p-4 md:grid-cols-[200px_1fr] md:gap-6"
+              >
+                <dt className="font-body text-xs uppercase tracking-[0.14em] opacity-60">
+                  {row.k}
+                </dt>
+                <dd className="font-body text-sm leading-relaxed">{row.v}</dd>
+              </div>
             ))}
-          </ul>
-        </section>
+          </dl>
+        </RevealOnScroll>
 
-        {/* HARDWARE */}
-        <section className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] border-b border-line bg-navy">
-          <div className="p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-line bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(123,179,255,0.04)_10px,rgba(123,179,255,0.04)_20px)] flex flex-col justify-center items-center text-center">
-            <div className="w-16 h-16 border border-line flex items-center justify-center mb-6"><div className="w-2 h-2 bg-primary" /></div>
-            <div className="font-mondwest text-2xl uppercase tracking-[0.2em] mb-2">Hardware Environment</div>
-            <div className="text-[10px] tracking-widest uppercase opacity-50">Local inference parameters</div>
+        {/* ============ ⟩ APPLY / CONTACT ============ */}
+        <RevealOnScroll className="border-t border-line py-20 md:py-24">
+          <h2 className="mb-6 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem]">
+            <Mark />
+            Take it for a spin
+          </h2>
+          <p className="mb-10 max-w-2xl text-lg opacity-80">
+            ARCA is open source. Clone it, audit it, fork it. Built for the{" "}
+            <span className="text-primary">Anthropic Fellows 2026</span> application.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <PrimaryCTA href={GITHUB_URL}>Star on GitHub</PrimaryCTA>
+            <GhostCTA href={`mailto:${CONTACT_EMAIL}`}>Email Adrian</GhostCTA>
           </div>
-          <div className="p-8 md:p-12 text-sm">
-            <ul className="space-y-4 font-mono max-w-2xl">
-              {stack.map((s) => (
-                <li key={s.k} className="flex items-end gap-2">
-                  <span className="opacity-60 whitespace-nowrap">{s.k}</span>
-                  <span className="flex-grow border-b border-dotted border-primary/40 h-4 min-w-[20px]" />
-                  <span className="text-right">{s.v}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        </RevealOnScroll>
       </main>
 
-      {/* FOOTER */}
-      <footer className="p-8 md:p-16 flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 bg-navy border-t-0">
-        <div className="max-w-2xl">
-          <div className="h-px w-12 bg-primary mb-8 opacity-50" />
-          <p className="text-xs leading-loose opacity-60 font-mono mb-6">
-            A.R.C.A. was built by Adrian Infantes as a personal research system. Every architectural decision is documented in ADRs. Every code change passes the gate chain. Every limitation is honestly disclosed.
-            <br /><br />
-            <span className="text-primary opacity-100 border border-line px-2 py-1 bg-primary/5">This site is my application to the Anthropic Fellows program 2026.</span>
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 w-full lg:w-auto shrink-0">
-          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="w-full text-left lg:text-center border border-line px-8 py-4 text-[11px] tracking-[0.2em] uppercase hover-invert relative group">
-            <span className="opacity-50 group-hover:opacity-100 absolute left-4 w-2 h-2 bg-primary group-hover:bg-navyDarker top-1/2 -translate-y-1/2 rounded-full transition-all" />
-            <span className="pl-4 lg:pl-0">GitHub repo (arca-claude-code)</span>
-          </a>
-          <div className="grid grid-cols-2 gap-4">
-            <a href={`${GITHUB_URL}/tree/main/docs/adr`} target="_blank" rel="noreferrer" className="border border-line px-4 py-4 text-[10px] tracking-[0.1em] uppercase hover:bg-primary/10 transition-colors text-center opacity-80 hover:opacity-100">Read all 47 ADRs</a>
-            <a href={`mailto:${CONTACT_EMAIL}?subject=A.R.C.A.%20%E2%80%94%20Fellows%202026`} className="border border-line px-4 py-4 text-[10px] tracking-[0.1em] uppercase bg-primary text-navyDarker hover:opacity-90 transition-opacity text-center font-bold">Contact</a>
-          </div>
+      {/* ============ FOOTER ============ */}
+      <footer className="border-t border-line py-10 font-body text-xs opacity-50">
+        <div className="flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
+          <span>
+            A.R.C.A. — Adversarial Research &amp; Code Architect · Built by Adrian Infantes
+          </span>
+          <span>2026 · MIT License</span>
         </div>
       </footer>
-
-      <div className="h-2 w-full border-t border-line bg-primary/5 flex items-center px-4">
-        <div className="w-1 h-1 bg-primary/50 ml-auto" />
-      </div>
     </div>
   );
 }
