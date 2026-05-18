@@ -10,7 +10,7 @@ import {
 import { RevealOnScroll } from "@/app/components/RevealOnScroll";
 
 /* openclaw.ai structural clone — estricto.
-   Hero · ⟩ What ARES Does · ⟩ Quick Look · ⟩ The Gate Chain ·
+   Hero · ⟩ What A.R.C.A Does · ⟩ Quick Look · ⟩ The Gate Chain ·
    ⟩ Built On · ⟩ Pipeline · ⟩ Architecture Decisions · ⟩ 9 Mortal Sins ·
    ⟩ Stack · ⟩ Apply / Contact · Footer
 
@@ -217,7 +217,7 @@ export default function Home() {
       {/* HEADER */}
       <header className="flex items-center justify-between border-b border-line py-6">
         <a href="/" className="font-display text-xl font-semibold tracking-tight">
-          ARES
+          A.R.C.A
         </a>
         <nav className="hidden gap-8 font-body text-sm md:flex">
           <a href="#what" className="opacity-70 transition-opacity hover:opacity-100">
@@ -252,13 +252,10 @@ export default function Home() {
                 <Mark />
                 Adversarial multi-agent system · ML / AI engineering
               </p>
-              {/* Brand wordmark with ARES magenta+violet glow */}
+              {/* Brand wordmark with A.R.C.A samurai blue glow */}
               <div className="mb-8 flex items-baseline gap-3">
                 <span className="oc-glow font-display text-5xl font-bold tracking-tight md:text-6xl">
-                  ARES
-                </span>
-                <span className="hidden font-body text-xs uppercase tracking-[0.2em] opacity-50 md:inline">
-                  v4.0
+                  A.R.C.A
                 </span>
               </div>
               <h1 className="mb-6 max-w-4xl font-display text-[2.75rem] font-semibold leading-[1.05] tracking-tight md:text-[4.5rem]">
@@ -277,9 +274,9 @@ export default function Home() {
                 is small (~30KB), Next/Image not needed and avoids extra config. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/ares-hero.webp"
-              alt="ARES on his throne — visual identity"
-              className="hidden h-auto max-h-[420px] w-full max-w-[360px] rounded-[12px] border border-ares-border object-cover shadow-[0_0_60px_rgba(255,45,138,0.25)] lg:block"
+              src="/arca-hero.png"
+              alt="A.R.C.A — AI Research &amp; Code Architect"
+              className="hidden h-auto max-h-[420px] w-full max-w-[360px] rounded-[12px] border border-ares-border object-cover shadow-[0_0_60px_rgba(37,99,235,0.25)] lg:block"
               loading="eager"
             />
           </div>
@@ -304,7 +301,7 @@ export default function Home() {
         <RevealOnScroll id="what" className="border-t border-line py-20 md:py-24">
           <h2 className="mb-3 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem]">
             <Mark />
-            What ARES does
+            What A.R.C.A does
           </h2>
           <p className="mb-12 max-w-2xl opacity-70">
             Six pillars that turn a single AI coding assistant into a regulated multi-agent
@@ -336,7 +333,7 @@ export default function Home() {
             Quick look
           </h2>
           <p className="mb-12 max-w-2xl opacity-70">
-            ARES lives inside Claude Code&rsquo;s native extension points: markdown agent
+            A.R.C.A lives inside Claude Code&rsquo;s native extension points: markdown agent
             definitions, bash hooks, JSON settings. Clone the repo, run install, work.
           </p>
 
@@ -573,7 +570,7 @@ export default function Home() {
             Take it for a spin
           </h2>
           <p className="mb-10 max-w-2xl text-lg opacity-80">
-            ARES is open source. Clone it, audit it, fork it. Built for the{" "}
+            A.R.C.A is open source. Clone it, audit it, fork it. Built for the{" "}
             <span className="text-brand font-semibold">Anthropic Fellows 2026</span>{" "}
             application.
           </p>
@@ -612,7 +609,7 @@ export default function Home() {
       <footer className="border-t border-line py-10 font-body text-xs opacity-50">
         <div className="flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
           <span>
-            ARES — Adversarial Research &amp; Engineering Stack · Built by Adrian Infantes
+            A.R.C.A — AI Research &amp; Code Architect · Built by Adrian Infantes
           </span>
           <span>2026 · MIT License</span>
         </div>

@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ARES — Adversarial Multi-Agent System for ML/AI Engineering",
+  title: "A.R.C.A — AI Research & Code Architect for ML/AI Engineering",
   description:
-    "ARES — Adversarial multi-agent system for ML/AI engineering. 49 specialized agents, 97 skills, 47 ADRs, 14-cycle ML pipeline (47 phases), 9 mortal sins as quality gates. Built with Claude. Applied to the Anthropic Fellows program 2026.",
+    "A.R.C.A — AI Research & Code Architect for ML/AI engineering. 49 specialized agents, 97 skills, 47 ADRs, 14-cycle ML pipeline (47 phases), 9 mortal sins as quality gates. Built with Claude. Applied to the Anthropic Fellows program 2026.",
   authors: [{ name: "Adrian Infantes" }],
   openGraph: {
-    title: "ARES — Adversarial Multi-Agent System",
+    title: "A.R.C.A — AI Research & Code Architect",
     description:
       "49 specialized agents, 97 skills, 47 ADRs, 14-cycle ML pipeline (47 phases), 9 mortal sins as quality gates.",
     type: "website",

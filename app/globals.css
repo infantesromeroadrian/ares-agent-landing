@@ -5,39 +5,39 @@
    names so existing utility classes (bg-navy, text-primary, border-line, etc.)
    reorient to the new palette WITHOUT a full rewrite of every component. */
 @theme {
-  /* ARES palette — extracted from Destripando la Historia / Ares
-     illustrations: deep violet bg, fuchsia/magenta accents, blush highlights,
+  /* A.R.C.A palette — derived from the A.R.C.A samurai chibi visual
+     identity: deep blue bg, samurai blue accents, sky highlights,
      near-black silhouette. Replaces the openclaw cyan/orange system. */
 
-  /* Legacy aliases (now mapped to ARES values — preserves utility class semantics) */
-  --color-navy: #1a0820;             /* deep violet background */
-  --color-navyDarker: #1f0d2e;       /* surface / cards */
-  --color-primary: #ffd9ea;          /* blush foreground on violet */
-  --color-accent: #ff2d8a;           /* magenta accent */
-  --color-line: rgb(255 217 234 / 0.16);
+  /* Legacy aliases (now mapped to A.R.C.A values — preserves utility class semantics) */
+  --color-navy: #0a1226;             /* deep blue background */
+  --color-navyDarker: #0f1c3a;       /* surface / cards */
+  --color-primary: #e0ecff;          /* light blue foreground on navy */
+  --color-accent: #2563eb;           /* samurai blue accent */
+  --color-line: rgb(224 236 255 / 0.16);
 
-  /* Explicit ARES tokens for new code */
-  --color-ares-bg: #1a0820;
-  --color-ares-surface: #1f0d2e;
-  --color-ares-border: #3a1f4a;
-  --color-ares-fg: #ffd9ea;
-  --color-ares-fg-muted: rgb(255 217 234 / 0.62);
-  --color-ares-fg-faint: rgb(255 217 234 / 0.36);
-  --color-ares-magenta: #ff2d8a;
-  --color-ares-fuchsia: #ff4488;
-  --color-ares-blush: #ffb4d8;
-  --color-ares-shadow: #0a0214;
+  /* Explicit A.R.C.A tokens (kept as --color-ares-* for token semantics stability) */
+  --color-ares-bg: #0a1226;
+  --color-ares-surface: #0f1c3a;
+  --color-ares-border: #1e3a6e;
+  --color-ares-fg: #e0ecff;
+  --color-ares-fg-muted: rgb(224 236 255 / 0.62);
+  --color-ares-fg-faint: rgb(224 236 255 / 0.36);
+  --color-ares-magenta: #2563eb;
+  --color-ares-fuchsia: #3b82f6;
+  --color-ares-blush: #93c5fd;
+  --color-ares-shadow: #020410;
 
-  /* Brand / accent tokens (now ARES magenta, not openclaw orange) */
-  --color-brand: #ff2d8a;
-  --color-brand-hover: #ff4488;
-  --color-coral: #ff4488;            /* icon-circle uses fuchsia, not orange */
-  --color-coral-soft: rgb(255 68 136 / 0.14);
-  --color-syntax-pink: #ff6b9d;
-  --color-syntax-green: #b388eb;     /* now violet — fits ARES */
-  --color-tab-active: #ff2d8a;       /* tab active uses magenta */
-  --color-glow-cyan: rgb(255 45 138 / 0.30);    /* hero glow now magenta */
-  --color-glow-purple: rgb(107 35 130 / 0.40);  /* deeper violet glow */
+  /* Brand / accent tokens (now samurai blue) */
+  --color-brand: #2563eb;
+  --color-brand-hover: #3b82f6;
+  --color-coral: #3b82f6;            /* icon-circle uses lighter blue */
+  --color-coral-soft: rgb(59 130 246 / 0.14);
+  --color-syntax-pink: #60a5fa;
+  --color-syntax-green: #93c5fd;     /* now sky blue — fits A.R.C.A */
+  --color-tab-active: #2563eb;       /* tab active uses samurai blue */
+  --color-glow-cyan: rgb(37 99 235 / 0.30);     /* hero glow now blue */
+  --color-glow-purple: rgb(30 58 110 / 0.40);   /* deeper navy glow */
 
   /* Font stacks — openclaw uses Clash Display (display/heading) + Satoshi (body) */
   --font-mono: "Satoshi", "Courier Prime", ui-monospace, monospace;
@@ -56,8 +56,8 @@
 
 @layer base {
   body {
-    background-color: #1a0820;
-    color: #ffd9ea;
+    background-color: #0a1226;
+    color: #e0ecff;
     font-family: "Satoshi", system-ui, -apple-system, "Segoe UI", sans-serif;
     font-size: 17.6px;
     line-height: 1.55;
@@ -66,8 +66,8 @@
   }
 
   ::selection {
-    background-color: #ff2d8a;
-    color: #1a0820;
+    background-color: #2563eb;
+    color: #0a1226;
   }
 }
 
@@ -86,25 +86,25 @@
     inset: -10% -5% 30% -5%;
     z-index: -1;
     background:
-      radial-gradient(ellipse 55% 45% at 50% 0%, rgb(255 45 138 / 0.32), transparent 65%),
-      radial-gradient(ellipse 40% 35% at 25% 10%, rgb(107 35 130 / 0.32), transparent 60%),
-      radial-gradient(ellipse 38% 32% at 78% 20%, rgb(255 68 136 / 0.20), transparent 60%);
+      radial-gradient(ellipse 55% 45% at 50% 0%, rgb(37 99 235 / 0.32), transparent 65%),
+      radial-gradient(ellipse 40% 35% at 25% 10%, rgb(30 58 110 / 0.32), transparent 60%),
+      radial-gradient(ellipse 38% 32% at 78% 20%, rgb(59 130 246 / 0.20), transparent 60%);
     filter: blur(40px);
     pointer-events: none;
   }
 
-  /* Soft glow under the ARES wordmark — magenta + violet */
+  /* Soft glow under the A.R.C.A wordmark — samurai blue */
   .oc-glow {
     text-shadow:
-      0 0 24px rgb(255 45 138 / 0.55),
-      0 0 64px rgb(107 35 130 / 0.45);
+      0 0 24px rgb(37 99 235 / 0.55),
+      0 0 64px rgb(30 58 110 / 0.45);
   }
 
-  /* Primary CTA — ARES magenta */
+  /* Primary CTA — A.R.C.A samurai blue */
   .btn-brand {
-    background-color: #ff2d8a;
-    color: #1a0820;
-    border: 1px solid #ff2d8a;
+    background-color: #2563eb;
+    color: #0a1226;
+    border: 1px solid #2563eb;
     border-radius: 12px;
     transition:
       background-color 200ms var(--ease-out),
@@ -112,20 +112,20 @@
       transform 160ms var(--ease-out);
   }
   .btn-brand:hover {
-    background-color: #ff4488;
-    border-color: #ff4488;
+    background-color: #3b82f6;
+    border-color: #3b82f6;
   }
   .btn-brand:active {
     transform: scale(0.97);
   }
 
-  /* Icon circle — ARES fuchsia */
+  /* Icon circle — A.R.C.A lighter blue */
   .icon-circle {
     width: 44px;
     height: 44px;
     border-radius: 999px;
-    background-color: rgb(255 68 136 / 0.18);
-    color: #ff4488;
+    background-color: rgb(59 130 246 / 0.18);
+    color: #3b82f6;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -139,36 +139,36 @@
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     border-radius: 12px;
-    border: 1px solid #3a1f4a;
-    background-color: #1f0d2e;
+    border: 1px solid #1e3a6e;
+    background-color: #0f1c3a;
     font-size: 0.875rem;
     transition: border-color 200ms var(--ease-out), background-color 200ms var(--ease-out);
   }
   .pill:hover {
-    border-color: rgb(255 45 138 / 0.45);
-    background-color: rgb(255 45 138 / 0.06);
+    border-color: rgb(37 99 235 / 0.45);
+    background-color: rgb(37 99 235 / 0.06);
   }
 
-  /* Tab — ARES Quick Start. Active: magenta underline highlight */
+  /* Tab — A.R.C.A Quick Start. Active: blue underline highlight */
   .tab {
     padding: 0.6rem 1rem;
     font-size: 0.85rem;
     font-weight: 500;
-    color: rgb(255 217 234 / 0.55);
+    color: rgb(224 236 255 / 0.55);
     border-bottom: 2px solid transparent;
     transition: color 180ms var(--ease-out), border-color 180ms var(--ease-out);
     cursor: default;
   }
   .tab-active {
-    color: #ff2d8a;
-    border-bottom-color: #ff2d8a;
+    color: #2563eb;
+    border-bottom-color: #2563eb;
   }
 
-  /* Terminal syntax colors — ARES uses pink + violet + faint comments */
-  .syntax-comment { color: rgb(255 217 234 / 0.38); }
-  .syntax-cmd     { color: #ff6b9d; }
-  .syntax-flag    { color: #b388eb; }
-  .syntax-str     { color: #ffd9ea; }
+  /* Terminal syntax colors — A.R.C.A uses blue tones + faint comments */
+  .syntax-comment { color: rgb(224 236 255 / 0.38); }
+  .syntax-cmd     { color: #60a5fa; }
+  .syntax-flag    { color: #93c5fd; }
+  .syntax-str     { color: #e0ecff; }
 }
 
 @layer components {
@@ -285,7 +285,7 @@
   display: inline-block;
   width: 8px;
   height: 15px;
-  background-color: #ff2d8a;
+  background-color: #2563eb;
   vertical-align: text-bottom;
 }
 
@@ -320,14 +320,14 @@
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #1a0820;
-  border-top: 1px solid rgb(255 217 234 / 0.08);
+  background: #0a1226;
+  border-top: 1px solid rgb(224 236 255 / 0.08);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(255 45 138 / 0.35);
+  background: rgb(37 99 235 / 0.35);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(255 45 138 / 0.6);
+  background: rgb(37 99 235 / 0.6);
 }
 
 @media (prefers-reduced-motion: reduce) {

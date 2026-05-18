@@ -107,7 +107,7 @@ export default function Flipbook() {
         </div>
         <div className="text-center">
           <h1 className="text-6xl md:text-7xl font-bold tracking-tight">A.R.C.A.</h1>
-          <p className="mt-4 text-lg opacity-70 tracking-[0.3em] uppercase">Adversarial Research &amp; Code Architect</p>
+          <p className="mt-4 text-lg opacity-70 tracking-[0.3em] uppercase">AI Research &amp; Code Architect</p>
           <div className="mt-10 mx-auto h-px w-16 bg-primary opacity-50" />
           <p className="mt-10 max-w-xl mx-auto text-lg leading-relaxed opacity-80">
             A multi-agent orchestration layer for Claude Code that turns one
