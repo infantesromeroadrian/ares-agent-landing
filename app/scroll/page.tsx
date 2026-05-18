@@ -271,16 +271,22 @@ export default function Home() {
                 <GhostCTA href="#adrs">Read the ADRs</GhostCTA>
               </div>
             </div>
-            {/* Ares throne illustration — visual identity of the agent.
-                eslint-disable-next-line @next/next/no-img-element — webp asset
-                is small (~30KB), Next/Image not needed and avoids extra config. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/arca-hero.gif"
-              alt="A.R.C.A — AI Research &amp; Code Architect"
+            {/* A.R.C.A samurai chibi (animated) — H.264 MP4 with PNG poster
+                for fast LCP. GIF kept as legacy fallback for browsers without
+                MP4 codec (~0.5% in 2026). 4.5MB GIF → 205KB MP4 (96% smaller). */}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster="/arca-hero.png"
+              aria-label="A.R.C.A — AI Research & Code Architect"
               className="hidden h-auto max-h-[420px] w-full max-w-[360px] rounded-[12px] border border-ares-border object-cover shadow-[0_0_60px_rgba(37,99,235,0.25)] lg:block"
-              loading="eager"
-            />
+            >
+              <source src="/arca-hero.mp4" type="video/mp4" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/arca-hero.gif" alt="A.R.C.A — AI Research & Code Architect" />
+            </video>
           </div>
 
           {/* Stats strip — openclaw-style flat horizontal */}
